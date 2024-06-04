@@ -13,12 +13,12 @@ class Article:
 
     @title.setter
     def title(self, title_value: str):
-        if hasattr(self, '_title') and self._title is not None:
+        if hasattr(self, '_title'):
             raise AttributeError("Title cannot be changed after being instantiated.")
         if isinstance(title_value, str) and 5 <= len(title_value) <= 50:
             self._title = title_value
         else:
-            raise ValueError("Title must be a str and have between 5 and 50 characters.")
+            raise TypeError("Title must be a str and have between 5 and 50 characters.")
 
     @property
     def author(self):
@@ -29,7 +29,7 @@ class Article:
         if isinstance(author_value, Author):
             self._author = author_value
         else:
-            raise ValueError("Author must be an instance of Author")
+            raise TypeError("Author must be an instance of Author")
 
     @property
     def magazine(self):
@@ -40,7 +40,7 @@ class Article:
         if isinstance(magazine_value, Magazine):
             self._magazine = magazine_value
         else:
-            raise ValueError("Magazine must be an instance of Magazine")
+            raise TypeError("Magazine must be an instance of Magazine")
 
 
 class Author:
@@ -53,12 +53,12 @@ class Author:
 
     @name.setter
     def name(self, name_value: str):
-        if hasattr(self, '_name') and self._name is not None:
+        if hasattr(self, '_name'):
             raise AttributeError("Name cannot be changed after being instantiated.")
         if isinstance(name_value, str) and len(name_value) > 0:
             self._name = name_value
         else:
-            raise ValueError("Name must be a str and must have more than 0 characters.")
+            raise TypeError("Name must be a str and must have more than 0 characters.")
 
     def articles(self):
         return [article for article in Article.all if article.author == self]
@@ -91,7 +91,7 @@ class Magazine:
         if isinstance(name_value, str) and 2 <= len(name_value) <= 16:
             self._name = name_value
         else:
-            raise ValueError("Magazine name must be a str and have between 2 and 16 characters.")
+            raise TypeError("Magazine name must be a str and have between 2 and 16 characters.")
 
     @property
     def category(self):
@@ -102,7 +102,7 @@ class Magazine:
         if isinstance(category_value, str) and len(category_value) > 0:
             self._category = category_value
         else:
-            raise ValueError("Category must be a str with more than 0 characters.")
+            raise TypeError("Category must be a str with more than 0 characters.")
 
     def articles(self):
         return [article for article in Article.all if article.magazine == self]
