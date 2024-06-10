@@ -45,21 +45,15 @@ class Article:
 
 class Author:
     def __init__(self, name):
-    
+        if not isinstance(name, str) :
+            raise TypeError("Name must be a str.")
+        if len(name) == 0:
+            raise ValueError("Name must have more than 0 characters.")
         self._name = name
 
     @property
     def name(self):
         return self._name
-
-    @name.setter
-    def name(self, name_value: str):
-        if hasattr(self, '_name'):
-            print("Name cannot be changed after being instantiated.")
-        if isinstance(name_value, str) and len(name_value) > 0:
-            self._name = name_value
-        else:
-            raise TypeError("Name must be a str and must have more than 0 characters.")
 
     def articles(self):
         return [article for article in Article.all if article.author == self]
